@@ -1,13 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from '../reducer';
+import middlewares from '../middleware';
 import { StyleSheet, Text, View } from 'react-native';
+import Test from './test';
 
-export default function App() {
+
+function App(props) {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={ createStore(reducers, middlewares) }>
+      <View style={styles.container}>
+        <Test />
+        <StatusBar style="auto" />
+      </View>
+    </Provider>
   );
 }
 
@@ -19,3 +28,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
