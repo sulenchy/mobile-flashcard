@@ -2,21 +2,29 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import reducers from '../reducer';
 import middlewares from '../middleware';
 import { StyleSheet, Text, View } from 'react-native';
-import Test from './test';
+import Decks from './Decks';
+import Cards from './Cards';
+import DeckView from './DeckView';
 
 
-function App(props) {
+const Stack = createNativeStackNavigator();
 
+function App() {
   return (
-    <Provider store={ createStore(reducers, middlewares) }>
-      <View style={styles.container}>
-        <Test />
-        <StatusBar style="auto" />
-      </View>
-    </Provider>
+    <NavigationContainer>
+      <Provider store={ createStore(reducers, middlewares) }>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Decks} />
+          <Stack.Screen name="Cards" component={Cards} />
+          <Stack.Screen name="DeckDetails" component={DeckView} />
+        </Stack.Navigator>
+      </Provider>
+    </NavigationContainer>
   );
 }
 
