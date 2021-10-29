@@ -1,23 +1,19 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, FlatList, Button, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { getDecks, setDecks, initialData } from '../data/api';
 import { addNewCard, handleInitialiseDb, handleAddNewDeckAction } from '../actions';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import DeckList from './DeckList';
+import NewDeck from './NewDeck';
 
 
-function Test(props) {
-
-    useEffect(async () => {
-        const { dispatch } = props;
-    }, [])
-
+function Decks({navigation, dispatch}) {
     const handleInitializeDb = ()=> {
-        const { dispatch } = props;
         dispatch(handleInitialiseDb(initialData))
     }
 
     const handleAddNewDeck = () => {
-        const { dispatch } = props;
         const newDeck = {
             Redux: {
                 title: 'Redux',
@@ -33,7 +29,6 @@ function Test(props) {
     }
 
     const handleAddNewCard = () => {
-        const { dispatch } = props;
         const newCard = {
             question: 'What is a card?',
             answer: 'The combination of cards is what make a deck meaningful.'
@@ -42,25 +37,46 @@ function Test(props) {
         dispatch(addNewCard({ deckId, card: newCard }));
     }
 
+    const Tab = createBottomTabNavigator();
+
     return (
-        <View>
-            <Text>This is test component</Text>
+        <View style={{ height: '100%' }}>
+            {/* <Text>This is Deck</Text>
             <Button onPress={ handleInitializeDb } title="Reset Database" />
             <Text />
             <Button onPress={ handleAddNewDeck } title="Add New Deck" />
             <Text />
             <Button onPress={ handleAddNewCard } title="Add New Card" />
+            <Text />
+            <Button
+                title="View Cards"
+                onPress={() => navigation.navigate('Cards')}
+            /> */}
+            {/** add a listview here */}
+            
+            <Tab.Navigator screenOptions={{ headerShown: false }}>
+                <Tab.Screen name="View Decks" component={DeckList} />
+                <Tab.Screen name="Add New" component={NewDeck} />
+            </Tab.Navigator>
         </View>
     )
 }
 
 
 const styles = StyleSheet.create({
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-})
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+  },
+});
 
-export default connect()(Test);
+export default connect()(Decks);
