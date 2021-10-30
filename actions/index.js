@@ -1,4 +1,4 @@
-import { getDecks, setDecks, addNewDeck } from '../data/api';
+import { getDecks, setDecks, addNewDeck, addNewCard, initialData } from '../data/api';
 
 export const ADD_NEW_DECK = 'ADD_NEW_DECK';
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
@@ -15,11 +15,11 @@ function initialiseDb(decks) {
     }
 }
 
-export function handleInitialiseDb(desks) {
-    return async (dispatch, getState) => {
+export function handleInitialiseDb() {
+    return async (dispatch) => {
         let items = await getDecks();
-        if(!items || !Object.keys(items)) {
-           items = await setDecks(desks)
+        if(!items || !Object.keys(items).length) {
+           items = await setDecks(initialData)
         }
         dispatch(initialiseDb(items))
     }
@@ -33,17 +33,24 @@ function addNewDeckAction(deck) {
 }
 
 export function handleAddNewDeckAction(deck) {
-    return async(dispatch, getState) => {
+    return async(dispatch) => {
         await addNewDeck(deck);
         dispatch(addNewDeckAction(deck));
     }
 }
 
-export function addNewCard({card, deckId}) {
+export function addNewCardAction({card, deckId}) {
     return {
         type: ADD_NEW_CARD,
         card,
         deckId
+    }
+}
+
+export function handleAddnewCard({card, deckId}){
+    return async(dispatch) => {
+        await addNewCard({card, deckId});
+        dispatch(addNewCardAction({card, deckId}));
     }
 }
 

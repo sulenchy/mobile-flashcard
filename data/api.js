@@ -25,15 +25,23 @@ export const getDecks = async () => {
 export const addNewDeck = async(deck) => {
     try {
         const jsonDecks = await AsyncStorage.getItem(MOBILE_FLASHCARD_KEY);
-        const currentDecks = jsonDecks != null ? JSON.parse(jsonDecks) : null
+        const currentDecks = jsonDecks != null ? JSON.parse(jsonDecks) : null;
         await AsyncStorage.setItem(MOBILE_FLASHCARD_KEY, JSON.stringify({...currentDecks, deck}))
     } catch(e) {
         return { message: e.message }
     }
 }
 
-export const addNewCard = async(deckId, card) => {
-
+export const addNewCard = async({deckId, card}) => {
+  try {
+        const jsonDecks = await AsyncStorage.getItem(MOBILE_FLASHCARD_KEY);
+        const decks = jsonDecks != null ? JSON.parse(jsonDecks) : null;
+        decks[deckId].questions.push(card);
+        console.log('updated decks ==>> ', decks);
+        await AsyncStorage.setItem(MOBILE_FLASHCARD_KEY, JSON.stringify(decks))
+    } catch(e) {
+        return { message: e.message }
+    }
 }
 
 

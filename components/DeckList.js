@@ -1,15 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, Pressable } from 'react-native';
-import { initialData } from '../data/api';
-import { handleInitialiseDb } from '../actions';
+import { FlatList, View, Text, StyleSheet, StatusBar, Pressable } from 'react-native';
 
-function DeckList({dispatch, decks, navigation}) {
-
-    useEffect(() =>{
-        dispatch(handleInitialiseDb(initialData));
-    }, [])
-
+function DeckList({decks, navigation}) {
     const DeckCard = ({ title, card_number }) => (
         <Pressable style={({ pressed }) => [
             {
@@ -18,11 +11,7 @@ function DeckList({dispatch, decks, navigation}) {
                 : 'white'
             }, styles.item]}
             onPress={ () => {
-                console.log(`Pressable for ${title} is pressed`);
-                navigation.navigate('DeckDetails', {
-                    title,
-                    card_number
-                });
+                navigation.navigate('DeckDetails', {title});
              } }
         >
             <View style={styles.center}>
