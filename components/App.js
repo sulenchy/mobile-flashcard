@@ -8,8 +8,9 @@ import reducers from '../reducer';
 import middlewares from '../middleware';
 import { StyleSheet, Text, View } from 'react-native';
 import Decks from './Decks';
-import Cards from './Cards';
 import DeckView from './DeckView';
+import NewCard from './NewCard';
+import Quiz from './Quiz';
 
 
 const Stack = createNativeStackNavigator();
@@ -20,8 +21,12 @@ function App() {
       <Provider store={ createStore(reducers, middlewares) }>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Decks} />
-          <Stack.Screen name="Cards" component={Cards} />
-          <Stack.Screen name="DeckDetails" component={DeckView} />
+          <Stack.Screen
+            name="DeckDetails"
+            component={DeckView}
+          />
+          <Stack.Screen name="NewCard" component={NewCard} />
+          <Stack.Screen name="Quiz" component={Quiz} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>
