@@ -48,12 +48,16 @@ export const initialData = {
     title: 'React',
     questions: [
       {
+        id: '1',
         question: 'What is React?',
-        answer: 'A library for managing user interfaces'
+        answer: 'A library for managing user interfaces',
+        isCorrect: true
       },
       {
+        id: '2',
         question: 'Where do you make Ajax requests in React?',
-        answer: 'The componentDidMount lifecycle event'
+        answer: 'The componentDidMount lifecycle event',
+        isCorrect: true
       }
     ]
   },
@@ -61,8 +65,10 @@ export const initialData = {
     title: 'JavaScript',
     questions: [
       {
+        id: '1',
         question: 'What is a closure?',
-        answer: 'The combination of a function and the lexical environment within which that function was declared.'
+        answer: 'The combination of a function and the lexical environment within which that function was declared.',
+        isCorrect: true
       }
     ]
   }

@@ -9,6 +9,7 @@ export const INITIALISE_DB =  'INITIALISE_DB';
 
 
 function initialiseDb(decks) {
+    console.log('initialiseDb ==>', decks)
     return {
         type: INITIALISE_DB,
         decks

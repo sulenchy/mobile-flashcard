@@ -6,7 +6,7 @@ function DeckView({ route, navigation }){
     const [cardNumber, setCardNumber] = useState(0);
     const { title } = route.params;
 
-    React.useEffect(() => {
+    useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async() => {
         const decks = await getDecks();
         setCardNumber(decks[title].questions.length);
@@ -38,7 +38,7 @@ function DeckView({ route, navigation }){
                         ? 'white'
                         : 'black'
                     }, styles.button]}
-                    onPress={() => navigation.navigate('Quiz')}
+                    onPress={() => navigation.navigate('Quiz', { deckId: title })}
                 >
                     <Text style={ styles.text }>Start Quiz</Text>
                 </Pressable>
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    // backgroundColor: 'black',
     marginBottom: 10,
     width: 150
   },

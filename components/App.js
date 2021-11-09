@@ -6,11 +6,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import reducers from '../reducer';
 import middlewares from '../middleware';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Decks from './Decks';
 import DeckView from './DeckView';
 import NewCard from './NewCard';
 import Quiz from './Quiz';
+import QuizScore from './QuizScore';
 
 
 const Stack = createNativeStackNavigator();
@@ -27,6 +28,7 @@ function App() {
           />
           <Stack.Screen name="NewCard" component={NewCard} />
           <Stack.Screen name="Quiz" component={Quiz} />
+          <Stack.Screen name="Score" component={QuizScore} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>
