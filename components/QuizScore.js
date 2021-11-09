@@ -8,7 +8,6 @@ function QuizScore({ navigation, route }){
 
     useEffect(() => {
         const final = score.score.reduce((acc, cur) => acc +cur);
-        console.log('score ===> ', final);
         setFinalScore(final);
     }, [])
     return (

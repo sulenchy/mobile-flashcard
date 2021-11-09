@@ -29,7 +29,6 @@ function  Quiz({ route, navigation }){
     }, [navigation]);
 
     const attemptActions = ({choice, question}) => {
-        console.log('In attemptActions ===> ', { choice, isCorrect: question.isCorrect})
         if (choice === question.isCorrect) {
             const newScore = { attempted: score.attempted, score: score.score.concat(1)};
             setScore(newScore);
