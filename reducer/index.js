@@ -22,7 +22,7 @@ function decks (state = {}, action) {
         case ADD_NEW_DECK:
             return {
                 ...state,
-                ...action.deck
+                ...{[action.deck.title]: action.deck}
             }
         case RECEIVE_CARD:
             return {
@@ -46,6 +46,5 @@ function decks (state = {}, action) {
             return state
     }
 }
-
 
 export default decks;

@@ -26,7 +26,7 @@ export const addNewDeck = async(deck) => {
     try {
         const jsonDecks = await AsyncStorage.getItem(MOBILE_FLASHCARD_KEY);
         const currentDecks = jsonDecks != null ? JSON.parse(jsonDecks) : null;
-        await AsyncStorage.setItem(MOBILE_FLASHCARD_KEY, JSON.stringify({...currentDecks, deck}))
+        await AsyncStorage.setItem(MOBILE_FLASHCARD_KEY, JSON.stringify({...currentDecks, ...{[deck.title]: deck}}))
     } catch(e) {
         return { message: e.message }
     }

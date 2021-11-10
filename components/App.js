@@ -13,13 +13,14 @@ import NewCard from './NewCard';
 import Quiz from './Quiz';
 import QuizScore from './QuizScore';
 
+const store = createStore(reducers, middlewares);
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Provider store={ createStore(reducers, middlewares) }>
+      <Provider store={ store }>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Decks} />
           <Stack.Screen

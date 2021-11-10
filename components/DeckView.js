@@ -9,7 +9,7 @@ function DeckView({ route, navigation }){
     useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async() => {
         const decks = await getDecks();
-        setCardNumber(decks[title].questions.length);
+        decks[title] && setCardNumber(decks[title].questions.length);
     });
 
     return unsubscribe;

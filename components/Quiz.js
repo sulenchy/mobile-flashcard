@@ -22,8 +22,10 @@ function  Quiz({ route, navigation }){
             setScore(defaultScore);
             const decks = await getDecks();
             setDecks(decks);
-            setCurrCard(decks[deckId].questions[currCardNumber-1])
-            setTotalCardNumber(decks[deckId].questions.length);
+            if(decks[deckId]) {
+                setCurrCard(decks[deckId].questions[currCardNumber-1]);
+                setTotalCardNumber(decks[deckId].questions.length);
+            }
         });
         return unsubscribe;
     }, [navigation]);
