@@ -49,6 +49,9 @@ export function addNewCardAction({card, deckId}) {
 
 export function handleAddnewCard({card, deckId}){
     return async(dispatch) => {
+        let decks = await getDecks();
+        card.id = decks[deckId] && decks[deckId].questions.length;
+        card.isCorrect = card.isCorrect ? card.isCorrect : true;
         await addNewCard({card, deckId});
         dispatch(addNewCardAction({card, deckId}));
     }

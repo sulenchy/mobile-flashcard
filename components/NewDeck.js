@@ -1,50 +1,80 @@
 import React, { useState } from 'react';
-import { Alert, View, Text, StyleSheet, StatusBar, Button, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
+import { handleAddNewDeckAction } from '../actions';
+import { connect } from 'react-redux';
 
-function NewDeck() {
-    const [title, setTitle] = useState('');
-    return (
-        <View style={ styles.center }>
-            <TextInput
-                style={styles.input}
-                onChangeText={setTitle}
-                value={title}
-                placeholder="Enter title"
-                keyboardType="numeric"
-            />
-            <Button
-                style={ styles.btn }
-                title="Left button"
-                onPress={() => Alert.alert('Left button pressed')}
-            />
-        </View>
-    )
+function NewDeck({dispatch}) {
+  const [title, setTitle] = useState('');
+
+  const handleSubmit = () => {
+    console.log({title})
+      try{
+        dispatch(handleAddNewDeckAction({
+            title,
+            questions: []
+        }));
+        setTitle('');
+      }
+      catch(err) {
+          return err.message
+      }
+  }
+
+  return (
+    <View style={styles.center}>
+      <TextInput
+        style={styles.input}
+        onChangeText={setTitle}
+        value={title}
+        placeholder="Enter title"
+        keyboardType="default"
+      />
+      <Pressable style={({ pressed }) => [
+        {
+        backgroundColor: pressed
+            ? 'white'
+            : 'black'
+        }, styles.button]}
+        onPress={handleSubmit}
+      >
+        <Text style={ styles.text }>Submit</Text>
+      </Pressable>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 32,
-  },
-  input: {
+    center: {
+        flex: 1,
+        width: '100%',
+        justifyContent: "center",
+        alignItems: 'center',
+    },
+    input: {
     height: 40,
     margin: 12,
+    marginHorizontal: 40,
     borderWidth: 1,
     padding: 10,
+    width: '90%'
   },
-  btn: {
-      margin: 12,
-      padding: 10
+    button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    marginBottom: 10,
+    width: 150
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
   },
 });
 
-export default NewDeck;
+export default connect()(NewDeck);
